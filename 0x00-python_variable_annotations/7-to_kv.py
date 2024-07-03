@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module defines a function named `to_kv` that takes a key and a value   
+This module defines a function named `to_kv` that takes a key and a value
 as input and returns a tuple where the value has been squared.
 """
 from typing import Tuple, Union
