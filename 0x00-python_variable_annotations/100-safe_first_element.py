@@ -3,20 +3,20 @@
 Blind Typing
 """
 # The types of the elements of the input are not know
-from typing import Any, List, Optional
+from typing import List, Optional, TypeVar
+
+T = TypeVar('T')  # Define a generic type variable
 
 
-def safe_first_element(lst: List[Any]) -> Optional[Any]:
+def safe_first_element(lst: List[T]) -> Optional[T]:
     """
-    Returns the first element of the list if it is not empty, 
-    otherwise returns None.
+    A function that safely returns the first element of a list or None if the list is empty.
 
     Args:
-        lst (List[Any]): The input list.
+        lst (List[T]): A list of elements of any type.
 
     Returns:
-        Optional[Any]: The first element of the list if it is not 
-        empty, otherwise None.
+        Optional[T]: The first element of the list if it exists, otherwise None.
     """
     if lst:
         return lst[0]
