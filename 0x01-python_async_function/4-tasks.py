@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import asyncio
+
 """
 This module contains a function that creates a list of tasks for a coroutine
 """
@@ -15,8 +17,6 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         List[float]: The list of delays
     """
-    array = []
-    for _ in range(n):
-        array.append(await task_wait_random(max_delay))
-    array.sort()
-    return array
+    tasks = [task_wait_random(max_delay) for _ in range(n)]
+    time_array = await asyncio.gather(*tasks)
+    return time_array
