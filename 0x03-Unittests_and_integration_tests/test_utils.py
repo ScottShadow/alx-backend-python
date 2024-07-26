@@ -3,7 +3,6 @@
 Parameterize Unit testing
 """
 import unittest
-import requests
 from parameterized import parameterized
 from unittest.mock import patch, Mock
 from utils import access_nested_map, get_json
@@ -81,7 +80,8 @@ class TestGetJson(unittest.TestCase):
         Parameters:
             - test_url (str): The URL to make a GET request to.
             - test_payload (dict): The expected payload of the JSON response.
-            - mock_get (MagicMock): The mock object for the `requests.get` function.
+            - mock_get (MagicMock): The mock object for the `requests.get`
+            function.
 
         Returns:
             None
