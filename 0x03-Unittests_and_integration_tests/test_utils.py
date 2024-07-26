@@ -3,8 +3,10 @@
 Parameterize Unit testing
 """
 import unittest
+import requests
 from parameterized import parameterized
-access_nested_map = __import__('utils').access_nested_map
+from unittest.mock import patch, Mock
+from utils import access_nested_map, get_json
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -58,6 +60,45 @@ class TestAccessNestedMap(unittest.TestCase):
 
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """TESTING UTILS"""
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    @patch("requests.get")
+    def test_get_json(self, test_url, test_payload, mock_get):
+        """
+        Test the `get_json` function with different input parameters.
+
+        This test case uses the `parameterized` library to generate multiple
+        test cases with different input parameters. It verifies that the
+        `get_json` function makes a GET request to the specified URL, retrieves
+        the JSON response, and returns the parsed payload.
+
+        Parameters:
+            - test_url (str): The URL to make a GET request to.
+            - test_payload (dict): The expected payload of the JSON response.
+            - mock_get (MagicMock): The mock object for the `requests.get` function.
+
+        Returns:
+            None
+        """
+        # Mock the requests.get function to return a Mock response
+        response = Mock()
+        response.json.return_value = test_payload
+        mock_get.return_value = response
+
+        # Call the get_json function with the test URL
+        res = get_json(test_url)
+
+        # Verify that the requests.get function was called with the correct URL
+        mock_get.assert_called_with(test_url)
+
+        # Verify that the parsed payload matches the expected payload
+        self.assertEqual(res, test_payload)
 
 
 if __name__ == "__main__":
