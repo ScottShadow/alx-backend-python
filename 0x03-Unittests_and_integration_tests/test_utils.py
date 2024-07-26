@@ -3,8 +3,8 @@
 Parameterize Unit testing
 """
 import unittest
-from parameterized import parameterized
 from unittest.mock import patch, Mock
+from parameterized import parameterized
 from utils import access_nested_map, get_json
 
 
