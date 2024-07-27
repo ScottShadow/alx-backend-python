@@ -3,8 +3,8 @@
 Parameterized Unit testing
 """
 import unittest
+from unittest.mock import patch
 from client import GithubOrgClient
-from unittest.mock import patch, Mock
 from parameterized import parameterized
 
 
@@ -22,9 +22,6 @@ class TestGithubOrgClient(unittest.TestCase):
         myobj = GithubOrgClient(test_org)
         myobj.org()
         mock_get.assert_called_once_with(ORG_URL)
-
-    def test_public_repos_url(self):
-        pass
 
 
 if __name__ == "__main__":
