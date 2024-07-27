@@ -17,11 +17,11 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch("client.get_json")
     def test_org(self, test_org, mock_get):
         """Test org"""
-        ORG_URL = f"https://api.github.com/orgs/{test_org}"
+        myurl = f"https://api.github.com/orgs/{test_org}"
 
         myobj = GithubOrgClient(test_org)
         myobj.org()
-        mock_get.assert_called_once_with(ORG_URL)
+        mock_get.assert_called_once_with(myurl)
 
 
 if __name__ == "__main__":
