@@ -3,9 +3,11 @@
 Parameterized Unit testing
 """
 import unittest
-from unittest.mock import patch, PropertyMock
-from client import GithubOrgClient
+from urllib import response
+from unittest.mock import patch, Mock, PropertyMock
+from unittest import mock
 from parameterized import parameterized, parameterized_class
+from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 
 
