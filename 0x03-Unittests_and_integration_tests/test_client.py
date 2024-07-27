@@ -62,18 +62,8 @@ class TestGithubOrgClient(unittest.TestCase):
         # Assert that the org property was called once
         mock_org.assert_called_once()
 
-    @parameterized.expand([
-        # Test case where the org "google" is used
-        # and the payload is "GOOGLE(list)"
-        ("google", ["GOOGLE"],
-         [{"name": "GOOGLE"}]),
-        # Test case where the org "random_url" is used
-        # and the payload is "RANDO(list)"
-        ('random_url', ["RANDO"],
-         [{"name": "RANDO"}])
-    ])
     @patch("client.get_json")
-    def test_public_repos(self, test_org, payload, json_payload, mock_get):
+    def test_public_repos(self, mock_get):
         """
         Test the public repos method of the GithubOrgClient class.
 
@@ -91,17 +81,19 @@ class TestGithubOrgClient(unittest.TestCase):
         Returns:
             None
         """
+        # payload with Options
+        payload = [{"name": "Google"}, {"name": "TT"}]
+        # Mock the get_json function
+        mock_get.return_value = payload
         # Mock the _public_repos_url property
         with patch("client.GithubOrgClient._public_repos_url",
                    new_callable=PropertyMock) as mock_pr:
             mock_pr.return_value = payload
-            # Mock the get_json function
-            mock_get.return_value = json_payload
 
             # Call the public_repos method
-            res = GithubOrgClient(test_org).public_repos()
+            res = GithubOrgClient("test_org").public_repos()
             # Assert that the returned value is equal to the payload
-            self.assertEqual(res, payload)
+            self.assertEqual(res, ["Google", "TT"])
             # Assert that the _public_repos_url property was called once
             mock_pr.assert_called_once()
             # Assert that the get_json function was called once
