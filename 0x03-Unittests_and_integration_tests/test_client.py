@@ -107,6 +107,36 @@ class TestGithubOrgClient(unittest.TestCase):
             # Assert that the get_json function was called once
             mock_get.assert_called_once()
 
+    @parameterized.expand([
+        # Test case where the repo has the license with key "my_license"
+        # and the expected result is True
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        # Test case where the repo does not have the license with key "my_license"
+        # and the expected result is False
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, path, key, status):
+        """
+        Test the has_license method of the GithubOrgClient class.
+
+        This test case checks if the has_license method of GithubOrgClient
+        class
+        returns the correct value based on the license key provided.
+
+        Args:
+            path (dict): The nested dictionary containing the license
+            information.
+            key (str): The license key to check.
+            status (bool): The expected result of the has_license method.
+
+        Returns:
+            None
+        """
+        # Call the has_license method with a dummy URL and the license key
+        res = GithubOrgClient("url").has_license(path, key)
+        # Assert that the returned value is equal to the expected result
+        self.assertEqual(res, status)
+
 
 if __name__ == "__main__":
     unittest.main()
