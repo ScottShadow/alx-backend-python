@@ -74,9 +74,6 @@ class TestGithubOrgClient(unittest.TestCase):
         the get_json function.
 
         Args:
-            test_org (str): The name of the organization.
-            payload (list): A list containing the expected payload.
-            json_payload (list): A list containing the JSON payload.
             mock_get (MagicMock): A mock object for the get_json function.
 
         Returns:
