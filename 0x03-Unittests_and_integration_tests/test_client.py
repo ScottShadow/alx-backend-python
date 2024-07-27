@@ -87,8 +87,7 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get.return_value = payload
         # Mock the _public_repos_url property
         with patch("client.GithubOrgClient._public_repos_url",
-                   new_callable=PropertyMock) as mock_pr:
-            mock_pr.return_value = "payload"
+                   PropertyMock(return_value="payload")) as mock_pr:
 
             # Call the public_repos method
             res = GithubOrgClient("test_org").public_repos()
